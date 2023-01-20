@@ -23,6 +23,26 @@
     return;
   }
 
+  // -=- Database Setup -=-
+
+  // ~ Create the users table if it does not exist
+  $db->query('CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+  )');
+
+  // ~ Create the tasks table if it does not exist
+  $db->query('CREATE TABLE IF NOT EXISTS tasks (
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  )');
+
   // -=- User Verification -=-
   
   // ~ Ensure that the user is logged in

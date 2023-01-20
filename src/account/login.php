@@ -45,6 +45,16 @@
     return;
   }
 
+  // -=- Database Setup -=-
+
+  // ~ Create the users table if it does not exist
+  $db->query('CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+  )');
+
   // -=- Password Verification -=-
 
   // ~ Ensure that the password is the same as the saved password
