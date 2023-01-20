@@ -39,7 +39,9 @@
     return;
   }
 
-  // ~ Verify that the username is not already taken
+  // -=- Password Verification -=-
+
+  // ~ Ensure that the password is the same as the saved password
   $stmt = $db->prepare('SELECT * FROM users WHERE username = ?');
   $stmt->bind_param('s', $username);
   $stmt->execute();
@@ -47,55 +49,46 @@
   // ~ Get the result
   $result = $stmt->get_result();
 
-  // ~ If the result is not empty, return
-  if ($result->num_rows > 0) {
+  // ~ If the result is empty, return
+  if ($result->num_rows === 0) {
     // ~ Return a 400 Bad Request
     http_response_code(400);
-    echo 'Username is already taken.';
+    echo 'Username or password is incorrect.';
 
     // ~ Close the database connection
     $db->close();
     return;
   }
 
-  // -=- Password Verification -=-
+  // ~ Get the user
+  $user = $result->fetch_assoc();
 
-  // ~ Verify that the password is valid
-  require_once __DIR__ . '/account/verify_password.php';
-
-  // ~ If the password is not valid, return
-  if (!verify_password($password)) {
+  // ~ If the password is incorrect, return
+  if (!password_verify($password, $user['password'])) {
     // ~ Return a 400 Bad Request
     http_response_code(400);
-    echo 'Password is not valid.';
+    echo 'Username or password is incorrect.';
 
     // ~ Close the database connection
     $db->close();
     return;
   }
-
-  // -=- User Creation -=-
-
-  // ~ Hash the password
-  $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
-
-  // ~ Insert the user into the database
-  $stmt = $db->prepare('INSERT INTO users (username, password, id) VALUES (?, ?, UUID())');
-  $stmt->bind_param('ss', $username, $password);
-  $stmt->execute();
-
-  // ~ Close the database connection
-  $db->close();
 
   // -=- Session Creation -=-
 
-  // ~ Return a 201 Created
-  http_response_code(201);
-  echo 'Account created.';
-
-  // ~ Log the user in
+  // ~ Start the session
   session_start();
-  $_SESSION['username'] = $username;
 
+  // ~ Set the session variables
+  $_SESSION['user_id'] = $user['id'];
+  $_SESSION['username'] = $user['username'];
+
+  // ~ Return a 200 OK
+  http_response_code(200);
+  echo 'Successfully logged in.';
+
+  // ~ Close the database connection
+  $db->close();
+  
   // TODO: Redirect to the application
 ?>
