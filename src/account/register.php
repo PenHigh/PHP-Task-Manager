@@ -79,13 +79,12 @@
   // ~ Hash the password
   $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
 
+  $user_id = '';
+
   // ~ Insert the user into the database
   $stmt = $db->prepare('INSERT INTO users (username, password, id) VALUES (?, ?, UUID())');
   $stmt->bind_param('ss', $username, $password);
   $stmt->execute();
-
-  // ~ Close the database connection
-  $db->close();
 
   // -=- Session Creation -=-
 
@@ -93,9 +92,26 @@
   http_response_code(201);
   echo 'Account created.';
 
+  // ~ Get the user's ID
+  $stmt = $db->prepare('SELECT id FROM users WHERE username = ?');
+  $stmt->bind_param('s', $username);
+  $stmt->execute();
+
+  // ~ Get the result
+  $result = $stmt->get_result();
+
+  // ~ Get the user's ID
+  $id = $result->fetch_assoc()['id'];
+
   // ~ Log the user in
   session_start();
+
+  // ~ Set the session variables
+  $_SESSION['user_id'] = $id;
   $_SESSION['username'] = $username;
+
+  // ~ Close the database connection
+  $db->close();
 
   // TODO: Redirect to the application
 ?>
