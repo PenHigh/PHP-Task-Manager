@@ -28,7 +28,7 @@ a {
   justify-content: space-around;
 }
 
-.navbar h1 {
+.navbar .navbar-logo {
   width: 50%;
   color: white;
   padding: 20px;
@@ -39,7 +39,7 @@ a {
   align-items: center;
 }
 
-.navbar #links {
+.navbar .navbar-links {
   width: 50%;
   display: flex;
   justify-content: right;
@@ -47,7 +47,7 @@ a {
   align-items: center;
 }
 
-.navbar #links a {
+.navbar .navbar-links .navbar-button {
   margin: 10px;
   font-size: 2rem;
 }
