@@ -12,7 +12,12 @@
   // -=- Database Connection -=-
 
   // ~ Connect to the database
-  $db = new mysqli($_ENV['MYSQL_CONNECTION_URI']);
+  $db = new mysqli(
+    $_ENV['MYSQL_HOST'],
+    $_ENV['MYSQL_USER'],
+    $_ENV['MYSQL_PASSWORD'],
+    $_ENV['MYSQL_DATABASE']
+  );
 
   // ~ If the connection failed, return
   if ($db->connect_error) {

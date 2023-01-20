@@ -4,19 +4,23 @@ services:
   php:
     build: ./
     ports:
-       - ${PORT}:80
+        - 80:80
     expose:
-       - 80
+        - 80
     networks:
-       - php-sql
+        - php-sql
     restart:
       unless-stopped
     depends_on:
-       - sql
+        - sql
     environment:
-       - MYSQL_CONNECTION_URI=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@sql:3306/${MYSQL_DATABASE}
+      MYSQL_HOST: sql
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
   sql:
-    image: mysql:latest
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
@@ -30,8 +34,6 @@ services:
       unless-stopped
     networks:
       - php-sql
-    logging:
-      driver: none
 
 volumes:
   sql-data:
