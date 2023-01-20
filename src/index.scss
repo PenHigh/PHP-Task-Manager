@@ -11,6 +11,7 @@ body {
 }
 a {
     color: $link-color;
+    text-decoration: none;
 }
 .navbar {
     background: $base-color;
@@ -28,14 +29,16 @@ a {
         font-size: 3rem;
         align-items: center;
     }
-    a {
-        padding: 20px;
-        text-decoration: none;
-        display: flex;
-        font-size: 2rem;
-        justify-content: right;
-        align-items: center;
+    #links {
         width: 50%;
+        display: flex;
+        justify-content: right;
+        padding-right: 30px;
+        align-items: center;
+        a {
+            margin: 10px;
+            font-size: 2rem;
+        }
     }
 }
 .about-us {
