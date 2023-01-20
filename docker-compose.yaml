@@ -4,25 +4,24 @@ services:
   php:
     build: ./
     ports:
-      - 80:80
+       - ${PORT}:80
     expose:
-      - 80
+       - 80
     networks:
-      - php-sql
+       - php-sql
     restart:
       unless-stopped
     depends_on:
-      - sql
+       - sql
     environment:
-      - MYSQL_CONNECTION_URI=mysql://someUser:somePassword@sql:3306/task-manager
-
+       - MYSQL_CONNECTION_URI=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@sql:3306/${MYSQL_DATABASE}
   sql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: someUser
-      MYSQL_PASSWORD: somePassword 
-      MYSQL_DATABASE: task-manager
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     expose:
       - 3306
     volumes:
