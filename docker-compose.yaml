@@ -13,14 +13,16 @@ services:
       unless-stopped
     depends_on:
       - sql
+    environment:
+      - MYSQL_CONNECTION_URI=mysql://someUser:somePassword@sql:3306/task-manager
 
   sql:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: supertokens_user
+      MYSQL_USER: someUser
       MYSQL_PASSWORD: somePassword 
-      MYSQL_DATABASE: supertokens
+      MYSQL_DATABASE: task-manager
     expose:
       - 3306
     volumes:
