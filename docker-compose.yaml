@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  php:
+    build: ./
+    ports:
+      - 80:80
+    expose:
+      - 80
+    networks:
+      - php-sql
+    restart:
+      unless-stopped
+    depends_on:
+      - sql
+
+  sql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: supertokens_user
+      MYSQL_PASSWORD: somePassword 
+      MYSQL_DATABASE: supertokens
+    expose:
+      - 3306
+    volumes:
+      - sql-data:/var/lib/mysql
+    restart:
+      unless-stopped
+    networks:
+      - php-sql
+    logging:
+      driver: none
+
+volumes:
+  sql-data:
+
+networks:
+  php-sql:
