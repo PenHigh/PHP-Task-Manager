@@ -1,4 +1,6 @@
 <?php
+  include_once __DIR__ . "/../lib/database.php";
+
   // ~ If it's not a POST or GET request, return
   if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $_SERVER['REQUEST_METHOD'] !== 'GET') {
     // ~ Return a 405 Method Not Allowed
@@ -7,42 +9,9 @@
   }
 
   // ~ Connect to the database
-  $db = new mysqli(
-    $_ENV['MYSQL_HOST'],
-    $_ENV['MYSQL_USER'],
-    $_ENV['MYSQL_PASSWORD'],
-    $_ENV['MYSQL_DATABASE']
-  );
 
-  // ~ If the connection failed, return
-  if ($db->connect_error) {
-    // ~ Return a 500 Internal Server Error
-    http_response_code(500);
-    echo 'Could not connect to the database.';
-
-    return;
-  }
-
-  // -=- Database Setup -=-
-
-  // ~ Create the users table if it does not exist
-  $db->query('CREATE TABLE IF NOT EXISTS users (
-    id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
-  )');
-
-  // ~ Create the tasks table if it does not exist
-  $db->query('CREATE TABLE IF NOT EXISTS tasks (
-    id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-  )');
-
+  $db = Database::connect();
+  
   // -=- User Verification -=-
   
   // ~ Ensure that the user is logged in
@@ -56,47 +25,34 @@
       echo 'You must be logged in to create a task.';
     }
 
-    // ~ Close the database connection
-    $db->close();
     return;
   }
 
   // ~ If it's a POST request, create a new task
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // ~ Get the task name from the request body
-    $taskName = $_POST['task-name'];
 
-    // ~ Get the task type from the request body
+    // ~ Get the task name and type from the request body
+    $taskName = $_POST['task-name'];
     $taskType = $_POST['task-type'];
 
-    // ~ If the task name is empty, return
+    // ~ If the task name or type is empty, return
     if (empty($taskName) || empty($taskType)) {
       // ~ Return a 400 Bad Request
       http_response_code(400);
+      echo 'Task name and type are required.';
       
-      // ~ Close the database connection
-      $db->close();
-      
-      if (empty($taskName)) {
-        echo 'Task name is required.';
-        return;
-      }
-
-      echo 'Task type is required.';
       return;
     }
 
-    // ~ Insert the task into the database
-    $stmt = $db->prepare('INSERT INTO tasks (user_id, name, type) VALUES (?, ?, ?)');
-
-    $stmt->bind_param('iss', $_SESSION['user_id'], $taskName, $taskType);
-    $stmt->execute();
-
-    // ~ Return a 201 Created
-    http_response_code(201);
-
-    // ~ Close the database connection
-    $db->close();
+    if (Database::create_task($db, $_SESSION['user_id'], $taskName, $taskType)) {
+      // ~ Return a 201 Created
+      http_response_code(201);
+      echo 'Successfully created task.';
+    } else {
+      // ~ Return a 400 Bad Request
+      http_response_code(400);
+      echo 'Failed to create task.';
+    }
 
     return;
   }
@@ -104,21 +60,13 @@
   // ~ If it's a GET request, get all tasks
 
   // ~ Get all tasks from the database
-  $stmt = $db->prepare('SELECT * FROM tasks WHERE user_id = ?');
-  $stmt->bind_param('i', $_SESSION['user_id']);
-  $stmt->execute();
-
-  // ~ Get the result
-  $result = $stmt->get_result();
+  $tasks = Database::get_tasks($db, $_SESSION['user_id']);
 
   // ~ Return a 200 OK
   http_response_code(200);
 
   // ~ Return the tasks as JSON
   echo json_encode($result->fetch_all(MYSQLI_ASSOC));
-
-  // ~ Close the database connection
-  $db->close();
 
   return;
 ?>

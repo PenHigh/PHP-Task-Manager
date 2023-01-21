@@ -1,0 +1,201 @@
+<?php
+
+    // ~ Ensure that this file is only called from the server
+    if (!isset($_SERVER['HTTP_HOST'])) {
+        // ~ Return a 403 Forbidden
+        http_response_code(403);
+        echo 'Forbidden.';
+        return;
+    }
+
+    /**
+     * Database class
+     */
+    class Database {
+
+        /**
+         * Connect to the database
+         * @return {mysqli} The database connection
+         */
+
+        public static function connect() {
+            // ~ Connect to the database
+            $db = new mysqli(
+                $_ENV['MYSQL_HOST'],
+                $_ENV['MYSQL_USER'],
+                $_ENV['MYSQL_PASSWORD'],
+                $_ENV['MYSQL_DATABASE']
+            );
+
+            // ~ If the connection failed, return
+            if ($db->connect_error) {
+                // ~ Return a 500 Internal Server Error
+                http_response_code(500);
+                echo 'Could not connect to the database.';
+                return;
+            }
+
+            // ~ Setup the database
+            self::setup($db);
+
+            // ~ Return the database connection
+            return $db;
+        }
+
+        /**
+         * Setup the database
+         * @param {mysqli} $db The database connection
+         */
+
+        static function setup($db) {
+            // ~ Create the users table if it does not exist
+            $db->query('CREATE TABLE IF NOT EXISTS users (
+                id INT NOT NULL AUTO_INCREMENT,
+                username VARCHAR(255) NOT NULL,
+                password VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id)
+            )');
+
+            // ~ Create the tasks table if it does not exist
+            $db->query('CREATE TABLE IF NOT EXISTS tasks (
+                id INT NOT NULL AUTO_INCREMENT,
+                user_id INT NOT NULL,
+                name VARCHAR(255) NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                PRIMARY KEY (id),
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )');
+        }
+
+        /**
+         * Check if the user with the given username exists
+         * @param {mysqli} $db The database connection
+         * @param {string} $username The username
+         * @return {boolean} Whether the user exists
+         */
+
+        public static function username_exists($db, $username) {
+           // ~ Verify that the username is not already taken
+           $stmt = $db->prepare('SELECT * FROM users WHERE username = ?');
+           $stmt->bind_param('s', $username);
+           $stmt->execute();
+
+           // ~ Get the result
+           $result = $stmt->get_result();
+
+           // ~ If the result is not empty, return false
+           if ($result->num_rows > 0) {
+               // ~ Return a 400 Bad Request
+               http_response_code(400);
+               echo 'Username is already taken.';
+
+               return false;
+           }
+           return true;
+        }
+
+        /**
+         * Register a user
+         * @param {mysqli} $db The database connection
+         * @param {string} $username The username
+         * @param {string} $password The password
+         * @return {boolean} Whether the user was registered
+         */
+
+        public static function register($db, $username, $password) {
+            // ~ If the username is already taken, return
+            if (self::username_exists($db, $username)) {
+                return false;
+            }
+
+            // ~ Hash the password
+            $password = password_hash($password, PASSWORD_DEFAULT);
+
+            // ~ Insert the user into the database
+            $db->query("INSERT INTO users (username, password) VALUES ('$username', '$password')");
+
+            // ~ Return whether the user was registered
+            return true;
+        }
+
+        /**
+         * Login a user
+         * @param {mysqli} $db The database connection
+         * @param {string} $username The username
+         * @param {string} $password The password
+         * @return {boolean} Whether the user was logged in
+         */
+
+        public static function login($db, $username, $password) {
+            // ~ If the username does not exist, return
+            if (!self::username_exists($db, $username)) {
+                return false;
+            }
+
+            // ~ Get the user from the database
+            $stmt = $db->prepare('SELECT * FROM users WHERE username = ?');
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
+
+            // ~ Get the result
+            $result = $stmt->get_result();
+
+            // ~ Get the user
+            $user = $result->fetch_assoc();
+
+            // ~ If the password does not match, return
+            if (!password_verify($password, $user['password'])) {
+                return false;
+            }
+
+            // ~ Set the session
+            $_SESSION['user_id'] = $user['id'];
+
+            // ~ Return whether the user was logged in
+            return true;
+        }
+
+        /**
+         * Create a task
+         * @param {mysqli} $db The database connection
+         * @param {integer} $name The task name
+         * @param {string} $name The task name
+         * @param {string} $type The task type
+         * @return {boolean} Whether the task was created
+         */
+
+        public static function create_task($db, $user_id, $name, $type) {
+            // ~ Insert the task into the database
+            $stmt = $db->prepare('INSERT INTO tasks (user_id, name, type) VALUES (?, ?, ?)');
+            $stmt->bind_param('iss', $user_id, $name, $type);
+            $stmt->execute();
+
+            // ~ Return whether the task was created
+            return true;
+        }
+
+        /**
+         * Get all tasks
+         * @param {mysqli} $db The database connection
+         * @param {integer} $user_id The user id
+         * @return {array} The tasks
+         */
+
+        public static function get_tasks($db, $user_id) {
+            // ~ Get the tasks from the database
+            $stmt = $db->prepare('SELECT * FROM tasks WHERE user_id = ?');
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+
+            // ~ Get the result
+            $result = $stmt->get_result();
+
+            // ~ Get the tasks
+            $tasks = $result->fetch_all(MYSQLI_ASSOC);
+
+            // ~ Return the tasks
+            return $tasks;
+        }
+    }
+
+?>

@@ -1,4 +1,6 @@
 <?php 
+  include_once __DIR__ . "/../lib/database.php";
+
   // -=- Request Verification -=-
 
   // ~ If the request method is not POST, return
@@ -12,21 +14,7 @@
   // -=- Database Connection -=-
 
   // ~ Connect to the database
-  $db = new mysqli(
-    $_ENV['MYSQL_HOST'],
-    $_ENV['MYSQL_USER'],
-    $_ENV['MYSQL_PASSWORD'],
-    $_ENV['MYSQL_DATABASE']
-  );
-
-  // ~ If the connection failed, return
-  if ($db->connect_error) {
-    // ~ Return a 500 Internal Server Error
-    http_response_code(500);
-    echo 'Could not connect to the database.';
-
-    return;
-  }
+  $db = Database::connect();
 
   // -=- User Verification -=-
 
@@ -39,57 +27,21 @@
     // ~ Return a 400 Bad Request
     http_response_code(400);
     echo 'Username and password are required.';
-
-    // ~ Close the database connection
-    $db->close();
+  
     return;
   }
-
-  // -=- Database Setup -=-
-
-  // ~ Create the users table if it does not exist
-  $db->query('CREATE TABLE IF NOT EXISTS users (
-    id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
-  )');
 
   // -=- Password Verification -=-
 
-  // ~ Ensure that the password is the same as the saved password
-  $stmt = $db->prepare('SELECT * FROM users WHERE username = ?');
-  $stmt->bind_param('s', $username);
-  $stmt->execute();
+  $result = Database::login($db, $username, $password);
 
-  // ~ Get the result
-  $result = $stmt->get_result();
-
-  // ~ If the result is empty, return
-  if ($result->num_rows === 0) {
+  if ($result === false) {
     // ~ Return a 400 Bad Request
     http_response_code(400);
     echo 'Username or password is incorrect.';
-
-    // ~ Close the database connection
-    $db->close();
     return;
   }
-
-  // ~ Get the user
-  $user = $result->fetch_assoc();
-
-  // ~ If the password is incorrect, return
-  if (!password_verify($password, $user['password'])) {
-    // ~ Return a 400 Bad Request
-    http_response_code(400);
-    echo 'Username or password is incorrect.';
-
-    // ~ Close the database connection
-    $db->close();
-    return;
-  }
-
+  
   // -=- Session Creation -=-
 
   // ~ Start the session
@@ -106,5 +58,7 @@
   // ~ Close the database connection
   $db->close();
   
-  // TODO: Redirect to the application
+  // ~ Redirect to the home page
+  header('Location: /');
+  
 ?>
