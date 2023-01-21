@@ -73,19 +73,27 @@ body {
     width: 50%;
     color: var(--text-color);
     font-size: 2rem;
+    padding: 50px;
 }
-.about-us p {
-    margin-bottom: 50px;
-}
-.about-us a {
+.about-us-register-button-container {
     border: 2px solid var(--link-color);
+    margin-top: 50px;
     border-radius: 15px;
     padding: 20px;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.about-us-register-button-container a {
     color: var(--link-color);
     text-decoration: none;
     transition: 500ms ease;
 }
-.about-us a:hover {
+.about-us-register-button-container:hover {
     background: var(--link-color);
+    cursor: pointer;
+}
+.about-us-register-button-container a:hover {
     color: black;
 }
