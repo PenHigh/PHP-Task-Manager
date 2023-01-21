@@ -13,7 +13,7 @@
   // -=- Database Connection -=-
 
   // ~ Connect to the database
-  $db = Database::connect();
+  $db = new Database();
 
   // -=- User Verification -=-
 
@@ -46,9 +46,9 @@
 
   // -=- User Creation -=-
 
-  $result = Database::register($db, $username, $password);
+  $user_creation_status = $db->create_user($username, $password);
 
-  if ($result === false) {
+  if ($user_creation_status === false) {
     // ~ Return a 400 Bad Request
     http_response_code(400);
     echo 'Username is already taken.';
@@ -74,5 +74,4 @@
 
   // ~ Redirect to the application
   header('Location: /');
-
 ?>

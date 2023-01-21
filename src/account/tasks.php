@@ -10,7 +10,7 @@
 
   // ~ Connect to the database
 
-  $db = Database::connect();
+  $db = new Database();
   
   // -=- User Verification -=-
   
@@ -44,7 +44,7 @@
       return;
     }
 
-    if (Database::create_task($db, $_SESSION['user_id'], $taskName, $taskType)) {
+    if ($db->create_task($_SESSION['user_id'], $taskName, $taskType)) {
       // ~ Return a 201 Created
       http_response_code(201);
       echo 'Successfully created task.';
@@ -60,13 +60,13 @@
   // ~ If it's a GET request, get all tasks
 
   // ~ Get all tasks from the database
-  $tasks = Database::get_tasks($db, $_SESSION['user_id']);
+  $tasks = $db->get_tasks($_SESSION['user_id']);
 
   // ~ Return a 200 OK
   http_response_code(200);
 
   // ~ Return the tasks as JSON
-  echo json_encode($result->fetch_all(MYSQLI_ASSOC));
+  echo json_encode($tasks);
 
   return;
 ?>

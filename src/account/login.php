@@ -14,7 +14,7 @@
   // -=- Database Connection -=-
 
   // ~ Connect to the database
-  $db = Database::connect();
+  $db = new Database();
 
   // -=- User Verification -=-
 
@@ -33,9 +33,9 @@
 
   // -=- Password Verification -=-
 
-  $result = Database::login($db, $username, $password);
+  $does_password_match = $db->verify_password($password);
 
-  if ($result === false) {
+  if ($does_password_match === false) {
     // ~ Return a 400 Bad Request
     http_response_code(400);
     echo 'Username or password is incorrect.';
@@ -54,11 +54,7 @@
   // ~ Return a 200 OK
   http_response_code(200);
   echo 'Successfully logged in.';
-
-  // ~ Close the database connection
-  $db->close();
   
   // ~ Redirect to the home page
   header('Location: /');
-  
 ?>
