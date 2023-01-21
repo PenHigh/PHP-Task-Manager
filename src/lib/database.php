@@ -112,7 +112,9 @@
             $password = password_hash($password, PASSWORD_DEFAULT);
 
             // ~ Insert the user into the database
-            $db->query("INSERT INTO users (username, password) VALUES ('$username', '$password')");
+            $stmt = $db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
+            $stmt->bind_param('ss', $username, $password);
+            $stmt->execute();
 
             // ~ Return whether the user was registered
             return true;
