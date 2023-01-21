@@ -20,6 +20,15 @@ body {
     background: var(--base-color);
 }
 
+.title {
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-align: center;
+    margin-top: 75px;
+    margin-bottom: 75px;
+}
+
 /* Start Header */
 
 .navbar a {
@@ -63,9 +72,7 @@ body {
 .main-page {
     display: flex;
     width: 100%;
-    height: 100vh;
     justify-content: center;
-    align-items: center;
 }
 
 /* Start About Us */
@@ -100,4 +107,11 @@ body {
 }
 .about-us-register-button-container a:hover {
     color: black;
+}
+.known-account {
+    font-size: 1.25rem;
+}
+.known-account a {
+    color: var(--link-color);
+    text-decoration: none;
 }
