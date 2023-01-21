@@ -1,12 +1,12 @@
 <h1 align="center">
-    📁 PHP Task Manager
+    PHP Task Manager
 </h1>
 
 <p align="center">
     A simple task manager written in PHP
 </p>
 
-# 🎁 Installation
+# Installation
 
 1. Download the repo
     * Clone the repo
@@ -38,11 +38,11 @@
     ```
 5. Navigate to `localhost:80` in your browser
 
-# 📝 License
+# License
 
 This project is licensed under the Affero General Public License v3.0 - see the [LICENSE](LICENSE) file for details
 
-# 👥 Contributors
+# Contributors
 - [Eroxl](https://github.com/eroxl)
 - [Toby](https://github.com/tobycm)
 - [Axel](https://github.com/MostLeVert)
