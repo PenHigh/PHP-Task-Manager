@@ -67,6 +67,9 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/* Start About Us */
+
 .about-us {
     border: 3px solid var(--border-color);
     border-radius: 15px;
@@ -84,6 +87,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 500ms ease;
 }
 .about-us-register-button-container a {
     color: var(--link-color);
