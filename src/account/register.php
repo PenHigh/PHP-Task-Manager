@@ -57,20 +57,20 @@
   }
 
   // -=- Session Creation -=-
+  
+  // ~ Get the user's ID
+  $id = $db->get_recent_id();
+  
+  // ~ Log the user in
+  session_start();
+  
+  // ~ Set the session variables
+  $_SESSION['user_id'] = $id;
+  $_SESSION['username'] = $username;
 
   // ~ Return a 201 Created
   http_response_code(201);
   echo 'Account created.';
-
-  // ~ Get the user's ID
-  $id = $db->get_recent_id();
-
-  // ~ Log the user in
-  session_start();
-
-  // ~ Set the session variables
-  $_SESSION['user_id'] = $id;
-  $_SESSION['username'] = $username;
 
   // ~ Redirect to the application
   header('Location: /');
