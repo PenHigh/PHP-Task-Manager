@@ -68,10 +68,10 @@
   $_SESSION['user_id'] = $id;
   $_SESSION['username'] = $username;
 
+  // ~ Redirect to the application
+  header('Location: /');
+
   // ~ Return a 201 Created
   http_response_code(201);
   echo 'Account created.';
-
-  // ~ Redirect to the application
-  header('Location: /');
 ?>
