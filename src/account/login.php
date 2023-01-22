@@ -33,12 +33,13 @@
 
   // -=- Password Verification -=-
 
-  $does_password_match = $db->verify_password($password);
+  $is_logged_in = $db->login($username, $password);
 
-  if ($does_password_match === false) {
+  if ($is_logged_in === false) {
     // ~ Return a 400 Bad Request
     http_response_code(400);
     echo 'Username or password is incorrect.';
+  
     return;
   }
   

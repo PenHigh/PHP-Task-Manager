@@ -17,7 +17,7 @@
 
         public function __construct() {
             // ~ Connect to the database
-            $this->$db = new mysqli(
+            $this->db = new mysqli(
                 $_ENV['MYSQL_HOST'],
                 $_ENV['MYSQL_USER'],
                 $_ENV['MYSQL_PASSWORD'],
@@ -25,7 +25,7 @@
             );
 
             // ~ If the connection failed, return
-            if ($this->$db->connect_error) {
+            if ($this->db->connect_error) {
                 // ~ Return a 500 Internal Server Error
                 http_response_code(500);
                 echo 'Could not connect to the database.';
@@ -41,7 +41,7 @@
          */
         private function setup() {
             // ~ Create the users table if it does not exist
-            $this->$db->query('CREATE TABLE IF NOT EXISTS users (
+            $this->db->query('CREATE TABLE IF NOT EXISTS users (
                 id INT NOT NULL AUTO_INCREMENT,
                 username VARCHAR(255) NOT NULL,
                 password VARCHAR(255) NOT NULL,
@@ -49,7 +49,7 @@
             )');
 
             // ~ Create the tasks table if it does not exist
-            $this->$db->query('CREATE TABLE IF NOT EXISTS tasks (
+            $this->db->query('CREATE TABLE IF NOT EXISTS tasks (
                 id INT NOT NULL AUTO_INCREMENT,
                 user_id INT NOT NULL,
                 name VARCHAR(255) NOT NULL,
@@ -66,7 +66,7 @@
          */
         public function username_exists($username) {
            // ~ Verify that the username is not already taken
-           $stmt = $this->$db->prepare('SELECT * FROM users WHERE username = ?');
+           $stmt = $this->db->prepare('SELECT * FROM users WHERE username = ?');
            $stmt->bind_param('s', $username);
            $stmt->execute();
 
@@ -100,7 +100,7 @@
             $password = password_hash($password, PASSWORD_DEFAULT);
 
             // ~ Insert the user into the database
-            $stmt = $this->$db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
+            $stmt = $this->db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
             $stmt->bind_param('ss', $username, $password);
             $stmt->execute();
 
@@ -121,7 +121,7 @@
             }
 
             // ~ Get the user from the database
-            $stmt = $this->$db->prepare('SELECT * FROM users WHERE username = ?');
+            $stmt = $this->db->prepare('SELECT * FROM users WHERE username = ?');
             $stmt->bind_param('s', $username);
             $stmt->execute();
 
@@ -152,7 +152,7 @@
          */
         public function create_task($user_id, $name, $type) {
             // ~ Insert the task into the database
-            $stmt = $this->$db->prepare('INSERT INTO tasks (user_id, name, type) VALUES (?, ?, ?)');
+            $stmt = $this->db->prepare('INSERT INTO tasks (user_id, name, type) VALUES (?, ?, ?)');
             $stmt->bind_param('iss', $user_id, $name, $type);
             $stmt->execute();
 
@@ -167,7 +167,7 @@
          */
         public function get_tasks($user_id) {
             // ~ Get the tasks from the database
-            $stmt = $this->$db->prepare('SELECT * FROM tasks WHERE user_id = ?');
+            $stmt = $this->db->prepare('SELECT * FROM tasks WHERE user_id = ?');
             $stmt->bind_param('i', $user_id);
             $stmt->execute();
 
