@@ -92,7 +92,7 @@
          */
         public function register($username, $password) {
             // ~ If the username is already taken, return
-            if (!self::username_exists($username)) {
+            if (!$this->username_exists($username)) {
                 return false;
             }
 
@@ -115,11 +115,6 @@
          * @return {boolean} Whether the user was logged in
          */
         public function login($username, $password) {
-            // ~ If the username does not exist, return
-            if (!self::username_exists($username)) {
-                return false;
-            }
-
             // ~ Get the user from the database
             $stmt = $this->db->prepare('SELECT * FROM users WHERE username = ?');
             $stmt->bind_param('s', $username);
@@ -131,13 +126,23 @@
             // ~ Get the user
             $user = $result->fetch_assoc();
 
-            // ~ If the password does not match, return
-            if (!password_verify($password, $user['password'])) {
+            // ~ If the user does not exist, return
+            if (!$user) {
+                // ~ Return a 400 Bad Request
+                http_response_code(400);
+                echo 'User does not exist.';
+
                 return false;
             }
 
-            // ~ Set the session
-            $_SESSION['user_id'] = $user['id'];
+            // ~ If the password is incorrect, return
+            if (!password_verify($password, $user['password'])) {
+                // ~ Return a 400 Bad Request
+                http_response_code(400);
+                echo 'Incorrect password.';
+
+                return false;
+            }
 
             // ~ Return whether the user was logged in
             return true;
@@ -179,6 +184,11 @@
 
             // ~ Return the tasks
             return $tasks;
+        }
+
+        public function get_recent_id() {
+            // ~ Get the latest id inserted into the database
+            return $this->db->insert_id;
         }
     }
 

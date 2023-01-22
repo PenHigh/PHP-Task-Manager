@@ -46,7 +46,7 @@
 
   // -=- User Creation -=-
 
-  $user_creation_status = $db->create_user($username, $password);
+  $user_creation_status = $db->register($username, $password);
 
   if ($user_creation_status === false) {
     // ~ Return a 400 Bad Request
@@ -63,7 +63,7 @@
   echo 'Account created.';
 
   // ~ Get the user's ID
-  $id = $db->insert_id;
+  $id = $db->get_recent_id();
 
   // ~ Log the user in
   session_start();
