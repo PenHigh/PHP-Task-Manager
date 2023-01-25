@@ -2,7 +2,7 @@
     --base-color: #1e1e1e;
     --border-color: #2c2c2c;
     --link-color: #646489;
-    --text-color: #9e9e9e;
+    --text-color: #d0d0d0;
 }
 
 /* Global Settings */
@@ -105,8 +105,8 @@ body {
     background: var(--link-color);
     cursor: pointer;
 }
-.about-us-register-button-container a:hover {
-    color: black;
+.about-us-register-button-container:hover > a {
+        color: black;
 }
 .known-account {
     font-size: 1.25rem;
