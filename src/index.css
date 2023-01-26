@@ -29,44 +29,6 @@ body {
     margin-bottom: 75px;
 }
 
-/* Start Header */
-
-.navbar a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-.navbar {
-    background: var(--base-color);
-    height: 100px;
-    border-bottom: 2px solid var(--border-color);
-    display: flex;
-    justify-content: space-around;
-}
-
-.navbar .navbar-logo {
-    width: 50%;
-    color: rgb(195, 195, 195);
-    padding: 20px;
-    justify-self: start;
-    display: flex;
-    justify-content: left;
-    font-size: 3rem;
-    align-items: center;
-}
-
-.navbar .navbar-links {
-    width: 50%;
-    display: flex;
-    justify-content: right;
-    padding-right: 30px;
-    align-items: center;
-}
-.navbar .navbar-links .navbar-button {
-    margin: 10px;
-    font-size: 2rem;
-}
-
 /* Start Main Page */
 
 .main-page {
