@@ -6,7 +6,7 @@
     --text-color: #d0d0d0;
 }
 
-/* Global Settings */
+/* Global */
 
 * {
     margin: 0;
@@ -30,7 +30,7 @@ body {
     margin-bottom: 75px;
 }
 
-/* Start Main Page */
+/* Main Page */
 
 .main-page {
     display: flex;
@@ -38,7 +38,7 @@ body {
     justify-content: center;
 }
 
-/* Start About Us */
+/* About Us */
 
 .about-us {
     border: 3px solid var(--border-color);
@@ -48,30 +48,30 @@ body {
     font-size: 2rem;
     padding: 50px;
 }
-.about-us-register-button {
-    background: var(--base-color);
-    font-size: 2rem;
-    border: 2px solid var(--link-color);
-    margin-top: 50px;
-    border-radius: 15px;
-    padding: 20px;
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 500ms ease;
-    color: var(--link-color);
-    text-decoration: none;
-}
-.about-us-register-button:hover {
-    background: var(--link-color);
-    cursor: pointer;
-    color: var(--base-color);
-}
-.known-account {
-    font-size: 1.25rem;
-}
-.known-account a {
-    color: var(--link-color);
-    text-decoration: none;
-}
+  .about-us-register-button {
+      background: var(--base-color);
+      font-size: 2rem;
+      border: 2px solid var(--link-color);
+      margin-top: 50px;
+      border-radius: 15px;
+      padding: 20px;
+      width: 25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 500ms ease;
+      color: var(--link-color);
+      text-decoration: none;
+  }
+  .about-us-register-button:hover {
+      background: var(--link-color);
+      cursor: pointer;
+      color: var(--base-color);
+  }
+  .known-account {
+      font-size: 1.25rem;
+  }
+  .known-account a {
+      color: var(--link-color);
+      text-decoration: none;
+  }
