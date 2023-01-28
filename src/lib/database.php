@@ -77,7 +77,7 @@
            if ($result->num_rows > 0) {
                // ~ Return a 400 Bad Request
                http_response_code(400);
-               echo 'Username is already taken.';
+               echo 'Username Exists, Try Logging In.';
 
                return false;
            }
