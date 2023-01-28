@@ -1,0 +1,60 @@
+:root {
+    --base-color: #1e1e1e;
+    --border-color: #2c2c2c;
+    --border-color-pronounce: #5e5e5e;
+    --link-color: #646489;
+    --text-color: #d0d0d0;
+}
+* {
+  margin:0;
+  padding:0;
+  color: var(--text-color);
+  font-family: system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
+}
+body {
+  height: 100vh;
+  background: var(--base-color);
+}
+.container {
+  width: 100%;
+  background: var(--base-color);
+  height: 100%;
+}
+.header {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header h1 {
+  font-size: 3rem;
+}
+.content {
+  width: 75%;
+  height: calc(100%-150px);
+  display: flex;
+  flex-direction: column;
+}
+.user {
+  font-size: 1.5rem;
+}
+.logout {
+
+}
+.logout h2 {
+  font-size: 2rem;
+}
+button {
+  outline: none;
+  border: 2px solid var(--link-color);
+  font-size: 2rem;
+}
+button:hover {
+  background: var(--link-color);
+  cursor: pointer;
+  color: var(--base-color);
+}
