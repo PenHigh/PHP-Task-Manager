@@ -54,11 +54,8 @@
   // ~ Set the session variables
   $_SESSION['user_id'] = $user['id'];
   $_SESSION['username'] = $user['username'];
-  
-  // ~ Redirect to the home page
-  header('Location: /');
 
-  // ~ Return a 200 OK
-  http_response_code(200);
-  echo 'Successfully logged in.';
+  // ~ Redirect to the dashboard
+  http_response_code(302);
+  header('Location: /dashboard')
 ?>
