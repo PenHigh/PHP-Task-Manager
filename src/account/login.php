@@ -48,6 +48,9 @@
   // ~ Start the session
   session_start();
 
+  // ~ Get the user from the database
+  $user = $is_logged_in;
+
   // ~ Set the session variables
   $_SESSION['user_id'] = $user['id'];
   $_SESSION['username'] = $user['username'];

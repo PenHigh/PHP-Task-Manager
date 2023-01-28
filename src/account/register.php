@@ -33,13 +33,13 @@
   // -=- Password Verification -=-
 
   // ~ Verify that the password is valid
-  require_once __DIR__ . '/../account/verify_password.php';
+  require_once __DIR__ . '/../lib/password.php';
 
   // ~ If the password is not valid, return
-  if (!verify_password($password)) {
+  if (!Password::verify($password)) {
     // ~ Return a 400 Bad Request
     http_response_code(400);
-    echo 'Password is not valid.';
+    echo 'Invalid password.';
 
     return;
   }

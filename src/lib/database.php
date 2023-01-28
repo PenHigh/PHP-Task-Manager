@@ -145,7 +145,7 @@
             }
 
             // ~ Return whether the user was logged in
-            return true;
+            return $user;
         }
 
         /**
