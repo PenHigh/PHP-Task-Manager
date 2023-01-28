@@ -112,7 +112,7 @@
          * Login a user
          * @param {string} $username The username
          * @param {string} $password The password
-         * @return {boolean} Whether the user was logged in
+         * @return {boolean or array} Whether the user was logged in
          */
         public function login($username, $password) {
             // ~ Get the user from the database
