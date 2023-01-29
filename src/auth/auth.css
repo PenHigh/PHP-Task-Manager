@@ -72,6 +72,7 @@ form {
   border-radius: 15px;
   padding: 20px;
   display: flex;
+  width: 220px;
   justify-content: center;
   align-items: center;
   transition: 500ms ease;
