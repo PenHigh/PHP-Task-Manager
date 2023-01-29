@@ -1,10 +1,10 @@
-<!-- php -->
-<!-- session_start(); -->
-<!--      if (!isset($_SESSION['user_id'])) { -->
-<!--         header('Location: /auth/login'); -->
-<!--         return; -->
-<!--      } -->
-<!--  ?> --!>
+<?php
+    session_start();
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /auth/login');
+            return;
+        }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@
         <div class="left-container">
             <div class="left-top">
                 <div class="left-top-title">
-                    good morening<!-- Good  LOGIC FOR MORNING/EVENING eve/morn? <?php echo $_SESSION['username']; ?></p> --!>
+                    good morening <!--LOGIC FOR MORN/EVE --> <?php echo $_SESSION['username']; ?></p>
                 </div>
                 <div class="left-top-new-note-container">
                     <div class="left-top-new-note">
