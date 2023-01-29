@@ -56,7 +56,6 @@
   $_SESSION['username'] = $user['username'];
 
   // ~ Redirect to the dashboard
-  $host = $_SERVER['HTTP_HOST'];
-  header("Location: http://$host/dashboard/index.php");
-  exit;
+  http_response_code(302);
+  header('Location: /dashboard')
 ?>

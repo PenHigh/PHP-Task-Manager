@@ -69,7 +69,6 @@
   $_SESSION['username'] = $username;
 
   // ~ Redirect to the application
-  $host = $_SERVER['HTTP_HOST'];
-  header("Location: http://$host/dashboard/index.php");
-  exit;
+  http_response_code(302);
+  header('location: /dashboard')
 ?>
