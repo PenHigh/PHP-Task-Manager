@@ -69,9 +69,7 @@
   $_SESSION['username'] = $username;
 
   // ~ Redirect to the application
-  header('Location: /');
-
-  // ~ Return a 201 Created
-  http_response_code(201);
-  echo 'Account created.';
+  $host = $_SERVER['HTTP_HOST'];
+  header("Location: http://$host/dashboard/index.php");
+  exit;
 ?>
