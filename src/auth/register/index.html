@@ -10,20 +10,25 @@
 </head>
 
 <body>
-    <h1>Create Account</h1>
-    <br>
 
-    <form action="/account/register.php" method="post">
-        <div class="label-wrapper">
-            <label class="form-box-label" form="username">Username</label>
+    <h1>Create Account</h1>
+
+    <div class="main-page">
+        <div class="page-content">
+            <form action="/account/register.php" method="post">
+                <div class="label-wrapper">
+                    <label class="form-box-label" form="username">Username</label>
+                </div>
+                <input class="type-form-box" type="text" name="username" id="username" />
+                <div class="label-wrapper">
+                    <label class="form-box-label" form="password">Password</label>
+                </div>
+                <input class="type-form-box" type="password" name="password" id="password" />
+            </form>
+            <input class="form-submit-button" type="submit" value="Register"/>
+            <span class="back-link">Or go <a href="/">back.</a></span>
         </div>
-        <input class="type-form-box" type="text" name="username" id="username" />
-        <div class="label-wrapper">
-            <label class="form-box-label" form="password">Password</label>
-        </div>
-        <input class="type-form-box" type="password" name="password" id="password" />
-        <input class="form-submit-button" type="submit" value="Register" />
-    </form>
+    </div>
 </body>
 
 </html>
