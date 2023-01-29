@@ -13,7 +13,7 @@
         ```bash
         git clone https://github.com/eroxl/php-task-manager.git
         ```
-    * Or download the [zip file](https://github.com/Eroxl/Note-Rack/archive/refs/heads/main.zip)
+    * Or download the [zip file](https://github.com/PenHigh/PHP-Task-Manager/archive/refs/heads/main.zip)
 
 2. Navigate to the repository
     * If you cloned the repo
@@ -29,14 +29,14 @@
             ```bash
             cd php-task-manager-main
             ```
-3. Download Docker and Docker Compose
+3. Download Docker & Docker Compose
     - [Docker](https://docs.docker.com/get-docker/)
     - [Docker Compose](https://docs.docker.com/compose/install/)
 4. Run the Docker Compose file
     ```bash
     docker-compose up --build
     ```
-5. Navigate to `localhost:80` in your browser
+5. Navigate to [localhost:80](http://localhost:80) in your browser
 
 # License
 
