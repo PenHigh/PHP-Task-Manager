@@ -17,19 +17,41 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Dashboard</h1>
-        </div>
-        <div class="content">
-            <div class="user">
-                <p>Hi <?php echo $_SESSION['username']; ?>!</p>
+        <div class="left-container">
+            <div class="left-top">
+                <div class="left-top-title">
+                    Good <!-- LOGIC FOR MORNING/EVENING --!> eve/morn? <?php echo $_SESSION['username']; ?></p>
+                </div>
+                <div class="left-top-new-note-container">
+                    <div class="left-top-new-note">
+                    </div>
+                    <div class="left-top-new-note-button">
+                    </div>
+                </div>
+                <div class="left-top-logout-container">
+                    <form action="/account/logout.php" method="POST">
+                        <button type="submit">Logout.</button>
+                    </form>
+                </div>
             </div>
-            <div class="logout">
-                <h2>Logout</h2>
-                <form action="/account/logout.php" method="POST">
-                    <button type="submit">Logout</button>
-                </form>
+            <div class="left-bottom">
+                <div class="left-bottom-title">
+                </div>
+                <div class="task-list-container">
+                    <div class="task-list-item"></div>
+                    <!-- LOGIC TO DISPLAY TASKS --!>
+                </div>
+            </div> 
+        </div>
+        <div class="left-container">
+            <div class="task-title-container">
+                <div class="task-title"></div>
+                <div class="task-title-date"><!-- LOGIC FOR DATE --!></div>
+            </div>
+            <div class="task-content">
+                <!-- LOGIC FOR TASKS (textinput?) --!>
             </div>
         </div>
+    </div>
 </body>
 </html>
