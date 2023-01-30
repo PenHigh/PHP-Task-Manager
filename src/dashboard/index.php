@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="left-top-logout-container">
-                    <form action="/account/logout.php" method="POST">
+                    <form action="/account/logout.php" method="GET">
                         <button type="submit">Logout.</button>
                     </form>
                 </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="task-list-container">
                     <div class="task-list-item"></div>
-                    <!-- LOGIC TO DISPLAY TASKS --!>
+                    <!-- LOGIC TO DISPLAY TASKS -->
                 </div>
             </div> 
         </div>
@@ -51,10 +51,10 @@
                 <div class="task-title">
                     Task title
                 </div>
-                <div class="task-title-date"><!-- LOGIC FOR DATE --!></div>
+                <div class="task-title-date"><!-- LOGIC FOR DATE --></div>
             </div>
             <div class="task-content">
-                <!-- LOGIC FOR TASKS (textinput?) --!>
+                <!-- LOGIC FOR TASKS (textinput?) -->
             </div>
         </div>
 
