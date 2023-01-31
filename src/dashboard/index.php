@@ -22,7 +22,17 @@
         <div class="left-container">
             <div class="left-top">
                 <div class="left-top-title">
-                    good morening <!--LOGIC FOR MORN/EVE --> <?php echo $_SESSION['username']; ?></p>
+                    <p id="greeting">
+                        good %%daytime%%
+                        <script>
+                            const greeting_message = document.querySelector("#greeting");
+                            const hourNow = new Date().getHours();
+                            greeting_message.innerHTML = greeting_message.innerHTML.replace("%%daytime%%",
+                                (hourNow < 16) && (hourNow > 7) ? "morening" : "evaning"
+                            )
+                        </script>, 
+                        <?php echo $_SESSION['username']; ?>
+                    </p>
                 </div>
                 <div class="left-top-new-note-container">
                     <div class="left-top-new-note">
