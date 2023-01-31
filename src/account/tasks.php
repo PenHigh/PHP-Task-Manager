@@ -1,8 +1,13 @@
 <?php
   include_once __DIR__ . "/../lib/database.php";
 
+  $request_method = $_SERVER['REQUEST_METHOD'];
+
   // ~ If it's not a POST or GET request, return
-  if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $_SERVER['REQUEST_METHOD'] !== 'GET') {
+  if (
+    $request_method !== 'POST' ||
+    $request_method !== 'GET'
+  ) {
     // ~ Return a 405 Method Not Allowed
     http_response_code(405);
     return;
@@ -19,7 +24,7 @@
     // ~ Return a 401 Unauthorized
     http_response_code(401);
 
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if ($request_method === 'GET') {
       echo 'You must be logged in to access this resource.';
     } else {
       echo 'You must be logged in to create a task.';
@@ -28,8 +33,10 @@
     return;
   }
 
+
+
   // ~ If it's a POST request, create a new task
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if ($request_method === 'POST') {
 
     // ~ Get the task name and type from the request body
     $taskName = $_POST['task-name'];
