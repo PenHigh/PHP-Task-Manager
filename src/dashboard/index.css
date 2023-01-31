@@ -8,6 +8,7 @@
 * {
   margin:0;
   padding:0;
+  background: var(--base-color);
   color: var(--text-color);
   font-family: system-ui, -apple-system,
       BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -15,46 +16,82 @@
       sans-serif;
 }
 body {
-  height: 100vh;
-  background: var(--base-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
-.container {
-  width: 100%;
-  background: var(--base-color);
-  height: 100%;
-}
-.header {
-  width: 100%;
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.header h1 {
-  font-size: 3rem;
-}
-.content {
-  width: 75%;
-  height: calc(100%-150px);
-  display: flex;
-  flex-direction: column;
-}
-.user {
-  font-size: 1.5rem;
-}
-.logout {
-
-}
-.logout h2 {
-  font-size: 2rem;
-}
-button {
-  outline: none;
-  border: 2px solid var(--link-color);
-  font-size: 2rem;
-}
-button:hover {
-  background: var(--link-color);
-  cursor: pointer;
-  color: var(--base-color);
-}
+    .container {
+        height: calc(100% - 50px);
+        width: calc(100% - 50px);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: row;
+        border: 2px solid var(--border-color);
+    }
+        .left-container {
+            width: 35%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-right: 2px solid var(--border-color);
+        }
+            .left-top {
+                width: 100%;
+                height: 25%;
+                border-bottom: 2px solid var(--border-color);
+            }
+                .left-top-title {
+                    height: calc(100%/3);
+                    font-size: 4rem;
+                    padding-left: 20px;
+                    display: flex;
+                    align-items: center;
+                    border-bottom: 2px solid var(--border-color);
+                }
+                .left-top-new-note-container {
+                    height: calc(100%/3);
+                    font-size: 3rem;
+                    display: flex;
+                    padding-left: 20px;
+                    align-items: center;
+                    border-bottom: 2px solid var(--border-color);
+                }
+                .left-top-logout-container {
+                    height: calc(100%/3);
+                    display: flex;
+                    padding-left: 20px;
+                    align-items: center;
+                    border-bottom: 2px solid var(--border-color);
+                }
+                    form button {
+                        font-size: 2.25rem;
+                    }
+            .left-bottom {
+                width: 100%;
+                height: 75%;
+                border-top: 2px solid var(--border-color);
+            }
+        .right-container {
+            width: 65%;
+            height: 100%;
+        } 
+            .task-title-container {
+                width: 95%;
+                height: 100px;
+                border-bottom: 2px solid var(--border-color);
+                display: flex;
+                flex-direction: row;
+            }
+                .task-title {
+                    font-size: 4rem;
+                }
+                .task-title-date {
+                    border-bottom: 2px solid var(--border-color);
+                }
+            .task-content {
+                width: 100%;
+                height: calc(99% - 100px);
+            }
