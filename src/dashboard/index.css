@@ -40,7 +40,7 @@ body {
         }
             .left-top {
                 width: 100%;
-                height: 25%;
+                height: 330px;
                 border-bottom: 2px solid var(--border-color);
             }
                 .left-top-title {
@@ -50,6 +50,7 @@ body {
                     display: flex;
                     align-items: center;
                     border-bottom: 2px solid var(--border-color);
+                    overflow: hidden;
                 }
                 .left-top-new-note-container {
                     height: calc(100%/3);
@@ -62,12 +63,22 @@ body {
                 .left-top-logout-container {
                     height: calc(100%/3);
                     display: flex;
-                    padding-left: 20px;
+                    padding-left: 10px;
                     align-items: center;
                     border-bottom: 2px solid var(--border-color);
                 }
                     form button {
                         font-size: 2.25rem;
+                        outline: none;
+                        border: 2px solid var(--link-color);
+                        padding: 20px;
+                        border-radius: 15px;
+                        transition: 500ms ease;
+                    }
+                    form button:hover {
+                        color: var(--base-color);
+                        background: var(--link-color);
+                        cursor: pointer;
                     }
             .left-bottom {
                 width: 100%;
@@ -84,6 +95,8 @@ body {
                 border-bottom: 2px solid var(--border-color);
                 display: flex;
                 flex-direction: row;
+                align-items: center;
+                padding-left: 20px;
             }
                 .task-title {
                     font-size: 4rem;
