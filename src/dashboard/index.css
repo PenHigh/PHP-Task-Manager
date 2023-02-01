@@ -44,8 +44,8 @@ body {
                 border-bottom: 2px solid var(--border-color);
             }
                 .left-top-title {
-                    height: calc(100%/3);
-                    font-size: 4rem;
+                    height: calc(100% / 3);
+                    font-size: 3rem;
                     padding-left: 20px;
                     display: flex;
                     align-items: center;
@@ -72,10 +72,6 @@ body {
                         height: calc(100% - 40px);
                         border-radius: 15px;
                         transition: 500ms ease;
-                    }
-                    /* make the svg background also change on hoever */
-                    .left-top-new-note-button:hover svg {
-                        fill: var(--link-color);
                     }
                     .left-top-new-note-button:hover {
                         color: var(--base-color);
