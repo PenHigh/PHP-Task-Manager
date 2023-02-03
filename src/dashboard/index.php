@@ -29,19 +29,15 @@
                         const greeting_message = document.querySelector("#greeting");
                         const hourNow = new Date().getHours();
                         greeting_message.innerHTML = greeting_message.innerHTML.replace("%%daytime%%",
-                            (hourNow < 16) && (hourNow > 7) ? "morening" : "evaning"
+                            (hourNow < 16) && (hourNow > 7) ? "merning" : "evaning"
                         )
                     </script>
                 </div>
                 <div class="left-top-new-note-container">
                     <div class="left-top-new-note">
-                        <input type="text" placeholder="New note...">
+                        <input type="text" placeholder="New note title...">
                     </div>
-                    <div class="left-top-new-note-button">
-    
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    
-                    </div>
+                    <div class="left-top-new-note-button">Go!</div>
                 </div>
                 <div class="left-top-logout-container">
                     <form action="/account/logout.php" method="GET">
