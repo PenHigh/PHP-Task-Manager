@@ -23,16 +23,15 @@
             <div class="left-top">
                 <div class="left-top-title">
                     <p id="greeting">
-                        good %%daytime%%
-                        <script>
-                            const greeting_message = document.querySelector("#greeting");
-                            const hourNow = new Date().getHours();
-                            greeting_message.innerHTML = greeting_message.innerHTML.replace("%%daytime%%",
-                                (hourNow < 16) && (hourNow > 7) ? "morening" : "evaning"
-                            )
-                        </script>, 
-                        <?php echo $_SESSION['username']; ?>
+                        good %%daytime%%, <?php echo $_SESSION['username']; ?>
                     </p>
+                    <script>
+                        const greeting_message = document.querySelector("#greeting");
+                        const hourNow = new Date().getHours();
+                        greeting_message.innerHTML = greeting_message.innerHTML.replace("%%daytime%%",
+                            (hourNow < 16) && (hourNow > 7) ? "morening" : "evaning"
+                        )
+                    </script>
                 </div>
                 <div class="left-top-new-note-container">
                     <div class="left-top-new-note">
