@@ -35,7 +35,7 @@
                 </div>
                 <div class="left-top-new-note-container">
                     <div class="left-top-new-note">
-                        New Note
+                        <input type="text" placeholder="New note...">
                     </div>
                     <div class="left-top-new-note-button">
     
