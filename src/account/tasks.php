@@ -33,8 +33,6 @@
     return;
   }
 
-
-
   // ~ If it's a POST request, create a new task
   if ($request_method === 'POST') {
 
