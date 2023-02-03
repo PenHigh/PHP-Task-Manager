@@ -18,7 +18,7 @@
 2. Navigate to the repository
     * If you cloned the repo
         ```bash
-        cd php-task-manager
+        cd <download location>/php-task-manager
         ```
     * If you downloaded the zip file
         1. Unzip the file
@@ -32,17 +32,13 @@
 3. Download Docker & Docker Compose
     - [Docker](https://docs.docker.com/get-docker/)
     - [Docker Compose](https://docs.docker.com/compose/install/)
-4. Run the Docker Compose file
+4. From the root of the project, run the Docker Compose file:
     ```bash
     docker-compose up --build
     ```
 5. Navigate to [localhost:80](http://localhost:80) in your browser
 
-# License
-
-This project is licensed under the Affero General Public License v3.0 - see the [LICENSE](LICENSE) file for details
-
 # Contributors
-- [Eroxl](https://github.com/eroxl)
-- [Toby](https://github.com/tobycm)
-- [Axel](https://github.com/MostLeVert)
+- [Eroxl](https://github.com/eroxl) + INITIAL DOCKER SETUP & PROJECT SCAFFOLDING
+- [Toby](https://github.com/tobycm) + BACKEND 
+- [Axel](https://github.com/MostLeVert) - FRONTEND IMPLEMENTATION & DESIGN
