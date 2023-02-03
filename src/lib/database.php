@@ -53,7 +53,6 @@
                 id INT NOT NULL AUTO_INCREMENT,
                 user_id INT NOT NULL,
                 name VARCHAR(255) NOT NULL,
-                type VARCHAR(255) NOT NULL,
                 PRIMARY KEY (id),
                 FOREIGN KEY (user_id) REFERENCES users(id)
             )');
@@ -155,10 +154,10 @@
          * @param {string} $type The task type
          * @return {boolean} Whether the task was created
          */
-        public function create_task($user_id, $name, $type) {
+        public function create_task($user_id, $name) {
             // ~ Insert the task into the database
-            $stmt = $this->db->prepare('INSERT INTO tasks (user_id, name, type) VALUES (?, ?, ?)');
-            $stmt->bind_param('iss', $user_id, $name, $type);
+            $stmt = $this->db->prepare('INSERT INTO tasks (user_id, name) VALUES (?, ?, ?)');
+            $stmt->bind_param('iss', $user_id, $name);
             $stmt->execute();
 
             // ~ Return whether the task was created
