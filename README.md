@@ -36,7 +36,7 @@
     ```bash
     cp ./.env.example ./.env
     ```
-5. From the root of the project, run the Docker Compose file:
+5. From the root of the project, run the Docker Compose file (with the docker desktop app open):
     ```bash
     docker-compose up --build
     ```
