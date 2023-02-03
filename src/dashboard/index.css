@@ -62,7 +62,10 @@ body {
                     justify-content: space-between;
                     border-bottom: 2px solid var(--border-color);
                 }
-                    .left-top-new-note {
+                    .left-top-new-note input {
+                        border: 2px solid var(--link-color);
+                        border-radius: 15px;
+                        padding: 20px;
                     }
                     .left-top-new-note-button {
                         font-size: 2.25rem;
