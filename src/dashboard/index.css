@@ -44,7 +44,7 @@ body {
             }
                 .left-top-title {
                     height: calc(100% / 3);
-                    font-size: 4vw;
+                    font-size: 3vw;
                     padding-left: 1vw;
                     display: flex;
                     align-items: center;
